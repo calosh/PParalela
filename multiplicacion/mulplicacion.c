@@ -15,7 +15,6 @@
 #define NUM_COLUMNS_A 1000 //columns of input [A]
 #define NUM_ROWS_B 1000 //rows of input [B]
 #define NUM_COLUMNS_B 1000 //columns of input [B]
-
 #define MASTER_TO_SLAVE_TAG 1 //tag for messages sent from master to slaves
 #define SLAVE_TO_MASTER_TAG 4 //tag for messages sent from slaves to master
 void makeAB(); //makes the [A] and [B] matrixes
@@ -103,12 +102,12 @@ void makeAB()
 {
     for (i = 0; i < NUM_ROWS_A; i++) {
         for (j = 0; j < NUM_COLUMNS_A; j++) {
-            mat_a[i][j] = i + j;
+            mat_a[i][j] = (i + j)*1000;
         }
     }
     for (i = 0; i < NUM_ROWS_B; i++) {
         for (j = 0; j < NUM_COLUMNS_B; j++) {
-            mat_b[i][j] = i*j;
+            mat_b[i][j] = (i*j)*1000;
         }
     }
 }

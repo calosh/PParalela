@@ -129,8 +129,9 @@ int main()
     //imprimir(AFBF);
 
      printf("\nTiempo transcurrido: %f", ((double)clock() - start) / CLOCKS_PER_SEC);
+     printf("\n");
 
-
+     return 0;
 }
  
 // https://stackoverflow.com/questions/8671366/undefined-reference-to-pow-and-floor

@@ -16,18 +16,19 @@
 
 #include<mpi.h>
 
-#define constante 3 //rows of input [A]
-#define NUM_ROWS_A 3 //rows of input [A]
-#define NUM_COLUMNS_A 3 //columns of input [A]
-#define NUM_ROWS_B 3 //rows of input [B]
-#define NUM_COLUMNS_B 3 //columns of input [B]
+#define constante 1000 //rows of input [A]
+#define NUM_ROWS_A 1000 //rows of input [A]
+#define NUM_COLUMNS_A 1000 //columns of input [A]
+#define NUM_ROWS_B 1000 //rows of input [B]
+#define NUM_COLUMNS_B 1000 //columns of input [B]
+
 
 #define MASTER_TO_SLAVE_TAG 1 //tag for messages sent from master to slaves
 #define SLAVE_TO_MASTER_TAG 4 //tag for messages sent from slaves to master
 void makeAB(); //makes the [A] and [B] matrixes
 void makeFacyorial();
 void printArray(); //print the content of output matrix [C];
-void imprimir(double [][3]); //print the content of output matrix [C];
+void imprimir(double [][constante]); //print the content of output matrix [C];
 
 
 int rank; //process rank
@@ -48,7 +49,7 @@ void imprimir2(void);
 
 void makeInversa(void);
 
-double entrada=3; // 
+double entrada=constante; // 
 
 double pivote;
 
@@ -82,9 +83,13 @@ int main(int argc, char *argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &size); //get number of processes
     /* master initializes work*/
     if (rank == 0) {
+        printf("\n\n\t\t\t Matriz  A y B");
         makeAB();
+        printf("\n\n\t\t\t Factorial de A y B");
         makeFacyorial();
         start_time = MPI_Wtime();
+
+        printf("\n\n\t\t\t Multiplicacion");
         for (i = 1; i < size; i++) {//for each slave other than the master
             portion = (NUM_ROWS_A / (size - 1)); // calculate portion without master
             low_bound = (i - 1) * portion;
@@ -135,33 +140,22 @@ int main(int argc, char *argv[])
             //receive processed data from a slave
             MPI_Recv(&mat_result[low_bound][0], (upper_bound - low_bound) * NUM_COLUMNS_B, MPI_DOUBLE, i, SLAVE_TO_MASTER_TAG + 2, MPI_COMM_WORLD, &status);
         }
-        end_time = MPI_Wtime();
-        printf("\nRunning Time = %f\n\n", end_time - start_time);
-        printArray();
+        
+        //printArray();
+        printf("\n\n\t\t\t Inversa");
 
         // Inversa
         makeInversa();
-        imprimir(mat_result);
+        //imprimir(mat_result);
+
+        end_time = MPI_Wtime();
+        printf("\nRunning Time = %f\n\n", end_time - start_time);
 
     }
     MPI_Finalize(); //finalize MPI operations
     return 0;
 }
-/*
-void makeAB()
-{
-    for (i = 0; i < NUM_ROWS_A; i++) {
-        for (j = 0; j < NUM_COLUMNS_A; j++) {
-            mat_a[i][j] = 1+rand()%(5-1);
-        }
-    }
-    for (i = 0; i < NUM_ROWS_B; i++) {
-        for (j = 0; j < NUM_COLUMNS_B; j++) {
-            mat_b[i][j] = 1+rand()%(5-1);
-        }
-    }
-}
-*/
+
 void makeAB()
 {
     for (i = 0; i < NUM_ROWS_A; i++) {
@@ -186,9 +180,6 @@ void makeFacyorial(){
     {
       for (j = 0;j < k; j++)
          {
-          //scanf("%f", & I[i][j]);
-           //I[i][j] = 1+rand()%(10-1);
-          // FACTORIAL
           fact = 1;
           for (int b = A[i][j]; b > 1; b--){
             fact = fact * b;
@@ -208,7 +199,7 @@ void makeFacyorial(){
 
 void makeInversa(){
   // Inversa
-  printf("\n\n\t\t\t Inversa");
+  //printf("\n\n\t\t\t Inversa");
   for(ii=0; ii<entrada; ii++)
   {
       j=ii;
@@ -275,21 +266,8 @@ void otros(void)
                 R[x][y]=mat_result[x][y]-(mat_result[ii][y]*mat_result[x][j])/pivote;
 }
 
-/*
-void imprimir2(void)
-{
-    puts("\nMatriz inversa:\n");
-    for(ii=0; ii<entrada; ii++)
-    {
-        for(j=0; j<entrada; j++)
-            printf("%f ", mat_result[ii][j]);
-        printf("\n");
-    }
-}
-*/
 
-void imprimir(double matrix[3][3]){
-  puts("\nMatriz inversa:\n");
+void imprimir(double matrix[constante][constante]){
   printf("\n");
   for(int i=0;i<entrada;i++){
       printf("\n\t\t");
