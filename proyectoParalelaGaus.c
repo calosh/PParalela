@@ -16,11 +16,12 @@
 
 #include<mpi.h>
 
-#define constante 10 //rows of input [A]
-#define NUM_ROWS_A 10 //rows of input [A]
-#define NUM_COLUMNS_A 10 //columns of input [A]
-#define NUM_ROWS_B 10 //rows of input [B]
-#define NUM_COLUMNS_B 10 //columns of input [B]
+#define constante 3 //rows of input [A]
+#define NUM_ROWS_A 3 //rows of input [A]
+#define NUM_COLUMNS_A 3 //columns of input [A]
+#define NUM_ROWS_B 3 //rows of input [B]
+#define NUM_COLUMNS_B 3 //columns of input [B]
+
 #define MASTER_TO_SLAVE_TAG 1 //tag for messages sent from master to slaves
 #define SLAVE_TO_MASTER_TAG 4 //tag for messages sent from slaves to master
 void makeAB(); //makes the [A] and [B] matrixes

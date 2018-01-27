@@ -44,12 +44,15 @@ int main()
   //printf("Enter the elements of %.0fX%.0f Matrix : \n", entrada, entrada);
   
   // Se llena aleatoriamente la matriz A y B
-  makeAB();
+  
   printf("\n\n\t\t\t Matriz de A");
-  //imprimir(A);
+  imprimir(A);
   printf("\n\n\t\t\t Matriz de B");
-  //imprimir(B);
+  imprimir(B);
+  makeAB();
 
+  printf("\n\n\t\t\t Factoriales de A");
+  printf("\n\n\t\t\t Factoriales de B");
   // La matriz AF y BF se llenan con los factoriales de las Matrices A y B
   for (i = 0;i < entrada; i++)
   {
@@ -74,13 +77,14 @@ int main()
         }
     }
 
-    printf("\n\n\t\t\t Factoriales de A");
-    //imprimir(AF);
-    printf("\n\n\t\t\t Factoriales de B");
-    //imprimir(BF);
+    //printf("\n\n\t\t\t Factoriales de A");
+    imprimir(AF);
+    //printf("\n\n\t\t\t Factoriales de B");
+    imprimir(BF);
 
 
     // Multiplicacion de la Matriz AF y BF
+    printf("\n\n\t\t\t Multiplicacion de AF * BF");
     for(int i=0;i<entrada;i++){
         for(int j=0;j<entrada;j++){
             AFBF[i][j]=0;
@@ -90,11 +94,12 @@ int main()
         }
     }
 
-    printf("\n\n\t\t\t Multiplicacion de AF * BF");
-    //imprimir(AFBF);
+    
+    
+    imprimir(AFBF);
 
     // Inversa
-    //printf("\n\n\t\t\t Inversa");
+    printf("\n\n\t\t\t Inversa");
     for(ii=0; ii<entrada; ii++)
     {
         j=ii;
@@ -107,9 +112,9 @@ int main()
             for(l=0; l<entrada; l++)
                 AFBF[k][l]=R[k][l];
     }
-    //imprimir2();
-    printf("\n\n\t\t\t Inversa de AF * BF");
-    //imprimir(AFBF);
+    imprimir2();
+    //printf("\n\n\t\t\t Inversa de AF * BF");
+    imprimir(AFBF);
 
 }
  
