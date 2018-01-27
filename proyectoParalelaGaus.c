@@ -33,14 +33,7 @@ int i, j, k; //helper variables
 
 int fact;
 
-// determinate
-double d;
-
 // Matriz Inversa
-double determinant(double [][constante], double);
-void cofactor(double [][constante], double);
-void transpose(double [][constante], double [][constante], double);
-
 
 // Matriz Inicial
 double A[NUM_ROWS_A][NUM_COLUMNS_A]; //declare input [A]
@@ -124,13 +117,7 @@ int main(int argc, char *argv[])
         printf("\nRunning Time = %f\n\n", end_time - start_time);
         printArray();
 
-                                    //ojo
-        d = determinant(mat_result, NUM_COLUMNS_B);
-        if (d == 0)
-         printf("\nInverse of Entered Matrix is not possible\n");
-        else
-         cofactor(mat_result, NUM_COLUMNS_B);
-
+        // Inversa
 
     }
     MPI_Finalize(); //finalize MPI operations
@@ -219,115 +206,4 @@ void printArray()
             printf("%8.2f  ", mat_result[i][j]);
     }
     printf("\n\n");
-}
-
-
-
-
-
-/*For calculating Determinant of the Matrix */
-double determinant(double a[constante][constante], double k)
-{
-  double s = 1, det = 0, b[constante][constante];
-  int i, j, m, n, c;
-  if (k == 1)
-    {
-     return (a[0][0]);
-    }
-  else
-    {
-     det = 0;
-     for (c = 0; c < k; c++)
-       {
-        m = 0;
-        n = 0;
-        for (i = 0;i < k; i++)
-          {
-            for (j = 0 ;j < k; j++)
-              {
-                b[i][j] = 0;
-                if (i != 0 && j != c)
-                 {
-                   b[m][n] = a[i][j];
-                   if (n < (k - 2))
-                    n++;
-                   else
-                    {
-                     n = 0;
-                     m++;
-                     }
-                   }
-               }
-             }
-          det = det + s * (a[0][c] * determinant(b, k - 1));
-          s = -1 * s;
-          }
-    }
- 
-    return (det);
-}
- 
-void cofactor(double num[constante][constante], double f)
-{
- double b[constante][constante], fac[constante][constante];
- int p, q, m, n, i, j;
- for (q = 0;q < f; q++)
- {
-   for (p = 0;p < f; p++)
-    {
-     m = 0;
-     n = 0;
-     for (i = 0;i < f; i++)
-     {
-       for (j = 0;j < f; j++)
-        {
-          if (i != q && j != p)
-          {
-            b[m][n] = num[i][j];
-            if (n < (f - 2))
-             n++;
-            else
-             {
-               n = 0;
-               m++;
-               }
-            }
-        }
-      }
-      fac[q][p] = pow(-1, q + p) * determinant(b, f - 1);
-    }
-  }
-  transpose(num, fac, f);
-}
-/*Finding transpose of matrix*/ 
-void transpose(double num[constante][constante], double fac[constante][constante], double r)
-{
-  int i, j;
-  double b[constante][constante], inverse[constante][constante], d;
- 
-  for (i = 0;i < r; i++)
-    {
-     for (j = 0;j < r; j++)
-       {
-         b[i][j] = fac[j][i];
-        }
-    }
-  d = determinant(num, r);
-  for (i = 0;i < r; i++)
-    {
-     for (j = 0;j < r; j++)
-       {
-        inverse[i][j] = b[i][j] / d;
-        }
-    }
-   printf("\n\n\nThe inverse of matrix is : \n");
- 
-   for (i = 0;i < r; i++)
-    {
-     for (j = 0;j < r; j++)
-       {
-         printf("\t%f", inverse[i][j]);
-        }
-    printf("\n");
-     }
 }
