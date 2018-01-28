@@ -144,8 +144,8 @@ void makeAB()
      for (j = 0;j < entrada; j++)
        {
 
-        A[i][j] = 1+rand()%(15-1);
-        B[i][j] = 1+rand()%(15-1);
+        A[i][j] = 1+rand()%(5-1);
+        B[i][j] = 1+rand()%(5-1);
         //AFBF[i][j] = 1+rand()%(10-1);
 
         }
